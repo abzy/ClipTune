@@ -39,7 +39,7 @@ public class RecordVideo extends SurfaceView implements SurfaceHolder.Callback {
 		recorder.setVideoSource(MediaRecorder.VideoSource.DEFAULT);
 		recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
 		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
-		recorder.setVideoEncoder(MediaRecorder.VideoEncoder.MPEG_4_SP);
+		recorder.setVideoEncoder(MediaRecorder.VideoEncoder.DEFAULT);
 		recorder.setVideoSize(640, 480);
 		recorder.setOrientationHint(90);
 		// recorder.setVideoFrameRate(15);

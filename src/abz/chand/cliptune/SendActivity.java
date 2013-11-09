@@ -36,20 +36,21 @@ public class SendActivity extends Activity{
 		setContentView(R.layout.activity_sending);		
 
 		File file = new File("/sdcard/cliptune.mp4");
-
-		//		byte[] b = new byte[(int) file.length()];
-
+		
 
 		try {
 
-			//			FileInputStream fileInputStream = new FileInputStream(file);
-			//			fileInputStream.read(b);
-			//			byte[] b = ByteStreams.toByteArray(fileInputStream);
-//			Log.e("b","aaaa:" + b.length);
+			Log.e("b","mmmm:" + file.length());
 
-//			FileChannel fc = new FileInputStream(file).getChannel();
-			IsoFile isoFile = new IsoFile("/sdcard/cliptune.mp4");
-			MovieBox moov = isoFile.getMovieBox();
+			byte[] b = new byte[(int) file.length()];
+			FileInputStream fileInputStream = new FileInputStream(file);
+			fileInputStream.read(b);
+//			byte[] b = ByteStreams.toByteArray(fileInputStream);
+			Log.e("b","aaaa:" + b.length);
+
+			//			FileChannel fc = new FileInputStream(file).getChannel();
+			//			IsoFile isoFile = new IsoFile("/sdcard/cliptune.mp4");
+			//			MovieBox moov = isoFile.getMovieBox();
 
 			VideoDto videoDto = new VideoDto(b, "8515447");
 			List<Clip> clips = new ArrayList<Clip>(); 
