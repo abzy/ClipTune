@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import com.coremedia.iso.IsoFile;
 import com.coremedia.iso.boxes.MovieBox;
 import com.google.gson.Gson;
+import com.googlecode.mp4parser.authoring.Movie;
 
 public class SendActivity extends Activity{
 
@@ -46,8 +47,8 @@ public class SendActivity extends Activity{
 			//			byte[] b = ByteStreams.toByteArray(fileInputStream);
 //			Log.e("b","aaaa:" + b.length);
 
-			FileChannel fc = new FileInputStream(file).getChannel();
-			IsoFile isoFile = new IsoFile(fc);
+//			FileChannel fc = new FileInputStream(file).getChannel();
+			IsoFile isoFile = new IsoFile("/sdcard/cliptune.mp4");
 			MovieBox moov = isoFile.getMovieBox();
 
 			VideoDto videoDto = new VideoDto(b, "8515447");
