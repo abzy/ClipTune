@@ -16,10 +16,12 @@ public class RecordVideo extends SurfaceView implements SurfaceHolder.Callback {
 	MediaRecorder recorder;
 	SurfaceHolder holder;
 	private long time;
-	
+
 	private List<StartStop> startStopTimes = new ArrayList<StartStop>();
-	
+
 	private String outputFile = "/sdcard/cliptune.mp4";
+
+	//	private String outputFile = "http://10.100.93.72:8080/moo.mp4";
 
 	public RecordVideo(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -35,11 +37,9 @@ public class RecordVideo extends SurfaceView implements SurfaceHolder.Callback {
 
 	private void foo(SurfaceHolder holder){
 		recorder = new MediaRecorder();
-		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 		recorder.setVideoSource(MediaRecorder.VideoSource.DEFAULT);
 		recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
-		recorder.setVideoEncoder(MediaRecorder.VideoEncoder.DEFAULT);
+		recorder.setVideoEncoder(MediaRecorder.VideoEncoder.MPEG_4_SP);
 		recorder.setVideoSize(640, 480);
 		recorder.setOrientationHint(90);
 		// recorder.setVideoFrameRate(15);
@@ -81,7 +81,7 @@ public class RecordVideo extends SurfaceView implements SurfaceHolder.Callback {
 	}
 
 	boolean recording = false;
-	
+
 	public void pauseRecording(){
 		if (!recording){
 			recording = true;
@@ -89,13 +89,13 @@ public class RecordVideo extends SurfaceView implements SurfaceHolder.Callback {
 
 			getStartStopTimes().add(new StartStop(System.currentTimeMillis()-time));
 		} else {
-			
+
 			Log.e("LLL", "BBB:" + (System.currentTimeMillis()-time));
 			recording = false;			
 			getStartStopTimes().get(getStartStopTimes().size()-1).setStopTime(System.currentTimeMillis()-time);
 		}
 	}
-	
+
 	public int getTime(){
 		long duration = 0;
 		for (int i = 0; i < getStartStopTimes().size(); i++){
@@ -105,19 +105,19 @@ public class RecordVideo extends SurfaceView implements SurfaceHolder.Callback {
 				duration += getStartStopTimes().get(i).getDuration();
 			}
 		}
-		
+
 		int timeLeft = (int) ((20000 - duration)/1000);
 		if (timeLeft <= 0){
 			getStartStopTimes().get(getStartStopTimes().size()-1).setStopTime(System.currentTimeMillis()-time);
 			stopRecording();
 		}
-		
+
 		if (recording){
 			return timeLeft; 
 		}
 		return -1;
 	}
-	
+
 	public void stopRecording()
 	{
 		if (started){
@@ -134,6 +134,6 @@ public class RecordVideo extends SurfaceView implements SurfaceHolder.Callback {
 	public List<StartStop> getStartStopTimes() {
 		return startStopTimes;
 	}	
-	
+
 }
 

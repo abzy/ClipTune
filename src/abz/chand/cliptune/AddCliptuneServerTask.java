@@ -17,7 +17,7 @@ class AddCliptuneServerTask extends AsyncTask<String, Void, String> {
 
     protected String doInBackground(String... videoDto) {
 	    HttpClient httpclient = new DefaultHttpClient();
-	    HttpPost httppost = new HttpPost("http://10.100.93.72:8080/video/add/123");
+	    HttpPost httppost = new HttpPost("http://10.100.93.245:8080/video/add/123");
 
 	    try {
 	    	StringEntity s = new StringEntity(videoDto[0]);

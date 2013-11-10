@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +17,7 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.coremedia.iso.IsoFile;
-import com.coremedia.iso.boxes.MovieBox;
 import com.google.gson.Gson;
-import com.googlecode.mp4parser.authoring.Movie;
 
 public class SendActivity extends Activity{
 
@@ -37,20 +33,15 @@ public class SendActivity extends Activity{
 
 		File file = new File("/sdcard/cliptune.mp4");
 		
-
 		try {
-
-			Log.e("b","mmmm:" + file.length());
-
+			
 			byte[] b = new byte[(int) file.length()];
 			FileInputStream fileInputStream = new FileInputStream(file);
 			fileInputStream.read(b);
 //			byte[] b = ByteStreams.toByteArray(fileInputStream);
+			
 			Log.e("b","aaaa:" + b.length);
 
-			//			FileChannel fc = new FileInputStream(file).getChannel();
-			//			IsoFile isoFile = new IsoFile("/sdcard/cliptune.mp4");
-			//			MovieBox moov = isoFile.getMovieBox();
 
 			VideoDto videoDto = new VideoDto(b, "8515447");
 			List<Clip> clips = new ArrayList<Clip>(); 

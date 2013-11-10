@@ -24,17 +24,29 @@
         </activity>
         <activity
             android:name="abz.chand.cliptune.SearchSongsActivity"
-            android:windowSoftInputMode="stateHidden"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name="abz.chand.cliptune.SendActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="abz.chand.cliptune.PreviewActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="abz.chand.cliptune.MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="abz.chand.cliptune.StartActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="abz.chand.cliptune.SendActivity"
-            android:label="@string/app_name" >
         </activity>
     </application>
 

@@ -1,6 +1,6 @@
 package abz.chand.cliptune;
 
-import java.net.URI;
+import java.io.File;
 import java.util.List;
 
 import android.app.Activity;
@@ -9,6 +9,7 @@ import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +17,7 @@ import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class RecordVideoActivity extends Activity {
@@ -36,6 +38,8 @@ public class RecordVideoActivity extends Activity {
 		
 		
 		final TextView timeLeft = (TextView) findViewById(R.id.timeLeft);
+		
+		final RelativeLayout recordingIndicator = (RelativeLayout) findViewById(R.id.recordingIndicator);
 
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		recordVideo = (RecordVideo) findViewById(R.id.camcorder_preview);
@@ -44,6 +48,7 @@ public class RecordVideoActivity extends Activity {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction()==MotionEvent.ACTION_DOWN) {
+					recordingIndicator.setBackgroundColor(0xff99BB88);
 					recordVideo.pauseRecording();
 					player.start();
 					return true;
@@ -60,6 +65,7 @@ public class RecordVideoActivity extends Activity {
 				}
 
 				if (event.getAction()==MotionEvent.ACTION_UP){
+					recordingIndicator.setBackgroundColor(0xffffffff);
 					recordVideo.pauseRecording();
 					player.pause();
 					return true;
@@ -74,7 +80,11 @@ public class RecordVideoActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				player.stop();
+				player.release();
+				recordVideo.stopRecording();
 				Intent intent = new Intent(RecordVideoActivity.this, SendActivity.class);
+//				Intent intent = new Intent(RecordVideoActivity.this, PreviewActivity.class);
 				List<StartStop> startStopTimes = recordVideo.getStartStopTimes();
 				long[] startTimes = new long[startStopTimes.size()];
 				long[] stopTimes = new long[startStopTimes.size()];
@@ -82,7 +92,8 @@ public class RecordVideoActivity extends Activity {
 					startTimes[i]=startStopTimes.get(i).getStartTime();
 					stopTimes[i]=startStopTimes.get(i).getStopTime();
 				}
-				
+				Log.e("b","mmmm:" + new File("/sdcard/cliptune.mp4").length());
+
 				intent.putExtra("startTimes", startTimes);
 				intent.putExtra("stopTimes", stopTimes);
 				startActivity(intent);
@@ -107,4 +118,5 @@ public class RecordVideoActivity extends Activity {
 		player.release();
 		recordVideo.stopRecording();
 	}
+	
 }
